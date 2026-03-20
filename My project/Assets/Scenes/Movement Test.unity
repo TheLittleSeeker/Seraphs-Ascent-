@@ -388,7 +388,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!4 &295909979
 Transform:
@@ -418,32 +418,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a4d4db320a0dc84b90094d2d9a845b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::movement
-  propel:
-    m_Name: Propel
+  jump:
+    m_Name: Jump
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 9f150ce5-3323-4904-b569-3eda2964de5b
+    m_Id: 7df87621-347f-4a1c-91f5-1a021f267a8f
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 01487691-d8ef-4e7e-aec0-5f4673d68d9e
+      m_Id: 13290f74-3b30-4b55-b7a4-3b51409a9178
       m_Path: <Keyboard>/space
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Propel
+      m_Action: Jump
       m_Flags: 0
+    m_Flags: 0
+  left:
+    m_Name: Left
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0793c9b2-693d-49f5-9abb-4baec5119c5c
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
     - m_Name: 
-      m_Id: b747f338-8c0c-445e-add5-959dac993423
-      m_Path: <Gamepad>/buttonSouth
+      m_Id: df9575c3-5895-43a6-b230-3750c68a3fc4
+      m_Path: <Keyboard>/a
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Propel
+      m_Action: Left
       m_Flags: 0
     m_Flags: 0
-  propelForce: 7
+  right:
+    m_Name: Right
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 6ff4a619-a290-459f-86c3-a1d23e3c8aa6
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: de649f37-d6b6-4137-b27e-43a78012b555
+      m_Path: <Keyboard>/d
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Right
+      m_Flags: 0
+    m_Flags: 0
+  jumpForce: 7
+  walkForce: 4
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,7 +841,7 @@ Transform:
   m_GameObject: {fileID: 454821887}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.57, z: 0}
+  m_LocalPosition: {x: 0, y: 1.57, z: 1.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

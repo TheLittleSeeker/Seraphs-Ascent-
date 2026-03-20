@@ -3,8 +3,14 @@ using UnityEngine.InputSystem;
 
 public class movement : MonoBehaviour
 {
-    [SerializeField] InputAction propel;
-    [SerializeField] float propelForce = 100f;
+    [SerializeField] InputAction jump;
+    [SerializeField] InputAction left;
+    [SerializeField] InputAction right;
+
+    [SerializeField] float jumpForce = 7f;
+    [SerializeField] float walkForce = 4f;
+
+    //bool canDoubleJump = true;
 
     Rigidbody rb;
 
@@ -16,13 +22,15 @@ public class movement : MonoBehaviour
 
     private void OnEnable()
     {
-        propel.Enable(); 
+        jump.Enable(); 
+        left.Enable();
+        right.Enable();
     }
 
 
     private void FixedUpdate()
     {
-        if (propel.IsPressed())
+        if (jump.IsPressed())
         {
             //rb.AddRelativeForce(Vector3.up * propelForce * Time.fixedDeltaTime);
 
@@ -30,7 +38,28 @@ public class movement : MonoBehaviour
             playerVelocity.y = 0f;
             rb.linearVelocity = playerVelocity;
 
-            rb.AddForce(Vector2.up * propelForce, ForceMode.Impulse);
+            rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
+        }
+
+        if (left.IsPressed())
+        {
+         
+            Vector2 playerVelocity = rb.linearVelocity;
+            playerVelocity.x = 0f;
+            rb.linearVelocity = playerVelocity;
+
+            rb.AddForce(Vector2.left * walkForce, ForceMode.Impulse);
+        }
+
+        if (right.IsPressed())
+        {
+            //rb.AddRelativeForce(Vector3.up * propelForce * Time.fixedDeltaTime);
+
+            Vector2 playerVelocity = rb.linearVelocity;
+            playerVelocity.x = 0f;
+            rb.linearVelocity = playerVelocity;
+
+            rb.AddForce(Vector2.right * walkForce, ForceMode.Impulse);
         }
     }
 }
