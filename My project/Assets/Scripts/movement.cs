@@ -4,15 +4,19 @@ using UnityEngine.InputSystem;
 public class movement : MonoBehaviour
 {
     [SerializeField] InputAction jump;
-    [SerializeField] InputAction left;
-    [SerializeField] InputAction right;
+    [SerializeField] InputAction move;
+    
 
     [SerializeField] float jumpForce = 7f;
-    [SerializeField] float walkForce = 4f;
+    [SerializeField] float moveSpeed = 4f;
 
-    //bool canDoubleJump = true;
+    [SerializeField] Transform groundCheck;
+    [SerializeField] float groundDistance = 0.2f;
+    [SerializeField] LayerMask groundLayer;
+    [SerializeField] bool isGrounded;
 
     Rigidbody rb;
+    Vector2 playerVelocity;
 
     private void Awake()
     {
@@ -23,43 +27,47 @@ public class movement : MonoBehaviour
     private void OnEnable()
     {
         jump.Enable(); 
-        left.Enable();
-        right.Enable();
+        move.Enable();
     }
 
+    private void Update()
+    {
+        CheckGrounded();
+    }
 
     private void FixedUpdate()
     {
-        if (jump.IsPressed())
+        HandleJump();
+        HandleMove();
+    }
+    private void HandleJump()
+    {
+        if (jump.IsPressed() && isGrounded)
         {
-            //rb.AddRelativeForce(Vector3.up * propelForce * Time.fixedDeltaTime);
-
-            Vector2 playerVelocity = rb.linearVelocity;
+            playerVelocity = rb.linearVelocity;
             playerVelocity.y = 0f;
             rb.linearVelocity = playerVelocity;
 
             rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
         }
+    }
+    private void HandleMove()
+    {            
+        float moveInput = move.ReadValue<float>();
+        playerVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
+        rb.linearVelocity = playerVelocity;
 
-        if (left.IsPressed())
+        if (moveInput != 0f)
         {
-         
-            Vector2 playerVelocity = rb.linearVelocity;
-            playerVelocity.x = 0f;
-            rb.linearVelocity = playerVelocity;
-
-            rb.AddForce(Vector2.left * walkForce, ForceMode.Impulse);
-        }
-
-        if (right.IsPressed())
-        {
-            //rb.AddRelativeForce(Vector3.up * propelForce * Time.fixedDeltaTime);
-
-            Vector2 playerVelocity = rb.linearVelocity;
-            playerVelocity.x = 0f;
-            rb.linearVelocity = playerVelocity;
-
-            rb.AddForce(Vector2.right * walkForce, ForceMode.Impulse);
+            float yRotation = moveInput > 0 ? 0f : 180f;
+            rb.MoveRotation(Quaternion.Euler(0, yRotation, 0));
         }
     }
-}
+
+    void CheckGrounded()
+    {
+        isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, groundLayer);        
+    
+    }
+ }
+
