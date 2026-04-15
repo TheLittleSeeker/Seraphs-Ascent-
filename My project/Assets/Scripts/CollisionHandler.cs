@@ -3,17 +3,16 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+    [SerializeField] ParticleSystem successParticles;
     private void OnCollisionEnter(Collision other)
     {
         switch (other.gameObject.tag)
         {
             case "Finish":
-                //Debug.Log("Everything is awesome!");
-                LoadNextScene();
+                StartSuccessSequence();
                 break;
             case "Unfriendly":
-                //Debug.Log("Everything is NOT awesome!");
-                ReloadScene();
+                StartDeathSequence();
                 break;
             case "Collectable":
                 Debug.Log("You found a coin!");
@@ -27,6 +26,17 @@ public class CollisionHandler : MonoBehaviour
         }
     }
 
+    private void StartSuccessSequence()
+    {
+        successParticles.Play();
+        GetComponent<movement>().enabled = false;
+        Invoke("LoadNextScene", 2f);
+    }
+    private void StartDeathSequence()
+    {
+        GetComponent<movement>().enabled = false;
+        Invoke("ReloadScene", 2f);
+    }
     void ReloadScene()
     {
         int currentScene = SceneManager.GetActiveScene().buildIndex;
