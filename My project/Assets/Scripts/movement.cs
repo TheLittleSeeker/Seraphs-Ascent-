@@ -15,12 +15,22 @@ public class movement : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] bool isGrounded;
 
+    
+    [SerializeField] AudioClip walk1SFX;
+    [SerializeField] AudioClip walk2SFX;
+
+    //[SerializeField] bool canWingBoost;
+
+
     Rigidbody rb;
+    AudioSource audioSource;
     Vector2 playerVelocity;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
+        //canWingBoost = false;
     }
 
 
@@ -39,6 +49,7 @@ public class movement : MonoBehaviour
     {
         HandleJump();
         HandleMove();
+        //HandleWingBoost();
     }
     private void HandleJump()
     {
@@ -49,8 +60,21 @@ public class movement : MonoBehaviour
             rb.linearVelocity = playerVelocity;
 
             rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
+            //canWingBoost = true;
         }
     }
+    //private void HandleWingBoost()
+    //{
+    //    if (jump.IsPressed() && (canWingBoost = true))
+    //    {
+    //        playerVelocity = rb.linearVelocity;
+    //        playerVelocity.y = 0f;
+    //        rb.linearVelocity = playerVelocity;
+
+    //        rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
+    //        canWingBoost = false;
+    //    }
+    //}
     private void HandleMove()
     {            
         float moveInput = move.ReadValue<float>();
@@ -61,6 +85,19 @@ public class movement : MonoBehaviour
         {
             float yRotation = moveInput > 0 ? 0f : 180f;
             rb.MoveRotation(Quaternion.Euler(0, yRotation, 0));
+        }
+
+        if (move.IsPressed())
+        {
+            if (!audioSource.isPlaying && isGrounded)
+            {
+                audioSource.PlayOneShot(walk1SFX, walk1SFX.length);
+                //audioSource.PlayOneShot(walk2SFX);
+            }
+            else
+            {
+                audioSource.Stop();
+            }
         }
     }
 
