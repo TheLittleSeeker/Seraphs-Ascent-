@@ -15,11 +15,17 @@ public class movement : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] bool isGrounded;
 
-    
+    [SerializeField] Transform wallCheck;
+    [SerializeField] float wallDistance = 0.2f;
+    [SerializeField] LayerMask wallLayer;
+    [SerializeField] bool isTouchingWall;
+
+
     [SerializeField] AudioClip walk1SFX;
     [SerializeField] AudioClip walk2SFX;
 
-    //[SerializeField] bool canWingBoost;
+    [SerializeField] bool canWingBoost;
+    
 
 
     Rigidbody rb;
@@ -30,7 +36,11 @@ public class movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
-        //canWingBoost = false;
+        canWingBoost = false;
+    }
+    private void Start()
+    {
+        jump.performed += ctx => HandleJump();
     }
 
 
@@ -43,38 +53,41 @@ public class movement : MonoBehaviour
     private void Update()
     {
         CheckGrounded();
+        CheckTouchingWall();
     }
 
     private void FixedUpdate()
     {
-        HandleJump();
         HandleMove();
-        //HandleWingBoost();
+        HandleWallJump();
     }
+
     private void HandleJump()
     {
-        if (jump.IsPressed() && isGrounded)
+        if (isGrounded || canWingBoost)
         {
-            playerVelocity = rb.linearVelocity;
+            Vector2 playerVelocity = rb.linearVelocity;
             playerVelocity.y = 0f;
             rb.linearVelocity = playerVelocity;
 
             rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
-            //canWingBoost = true;
+            canWingBoost = !canWingBoost;
         }
     }
-    //private void HandleWingBoost()
-    //{
-    //    if (jump.IsPressed() && (canWingBoost = true))
-    //    {
-    //        playerVelocity = rb.linearVelocity;
-    //        playerVelocity.y = 0f;
-    //        rb.linearVelocity = playerVelocity;
 
-    //        rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
-    //        canWingBoost = false;
-    //    }
-    //}
+    private void HandleWallJump()
+    {
+        if (isTouchingWall)
+        {
+            Debug.Log("I am touching a wall!");
+            //Vector2 playerVelocity = rb.linearVelocity;
+            //playerVelocity.y = 0f;
+            //rb.linearVelocity = playerVelocity;
+
+            //rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
+        }
+    }
+
     private void HandleMove()
     {            
         float moveInput = move.ReadValue<float>();
@@ -101,10 +114,25 @@ public class movement : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        switch (other.gameObject.tag)
+        {
+            case "Wall":
+                isTouchingWall = true;
+                Debug.Log("You're touching a wall");
+                break;
+        }
+    }
+
     void CheckGrounded()
     {
         isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, groundLayer);        
-    
     }
- }
+
+    void CheckTouchingWall()
+    {
+        isTouchingWall = Physics.Raycast(wallCheck.position, Vector3.forward, wallDistance, wallLayer);
+    }
+}
 

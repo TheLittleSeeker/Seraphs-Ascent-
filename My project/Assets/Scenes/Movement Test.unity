@@ -904,9 +904,9 @@ GameObject:
   - component: {fileID: 1081827972}
   - component: {fileID: 1081827971}
   - component: {fileID: 1081827970}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1378,9 +1378,9 @@ GameObject:
   - component: {fileID: 2044564777}
   - component: {fileID: 2044564776}
   - component: {fileID: 2044564775}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1529,6 +1529,14 @@ PrefabInstance:
     - target: {fileID: 6517811348826120925, guid: 3ddbdc1773d9b824eae6a8b90680b033, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112754899172454268, guid: 3ddbdc1773d9b824eae6a8b90680b033, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9211422578099798318, guid: 3ddbdc1773d9b824eae6a8b90680b033, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.489
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

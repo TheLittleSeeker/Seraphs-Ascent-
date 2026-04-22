@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] ParticleSystem successParticles;
+    [SerializeField] ParticleSystem deathParticles;
+
 
     [SerializeField] AudioClip success;
     [SerializeField] AudioClip death;
@@ -17,6 +19,11 @@ public class CollisionHandler : MonoBehaviour
         if (successParticles.isPlaying)
         {
             successParticles.Stop();
+        }
+
+        if (deathParticles.isPlaying)
+        {
+            deathParticles.Stop();
         }
     }
     private void Awake()
@@ -42,8 +49,10 @@ public class CollisionHandler : MonoBehaviour
             case "Pickup":
                 Debug.Log("You got a pickup!");
                 break;
-            default:
-                Debug.Log("Something happens");
+            case "Wall":
+                //Debug.Log("You're touching a wall");
+                //default:
+                //    Debug.Log("Something happens");
                 break;
         }
     }
@@ -59,6 +68,7 @@ public class CollisionHandler : MonoBehaviour
     private void StartDeathSequence()
     {
         audiosource.PlayOneShot(death);
+        deathParticles.Play();
         GetComponent<movement>().enabled = false;
         Invoke("ReloadScene", 2f);
     }
