@@ -4,8 +4,37 @@ using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] ParticleSystem successParticles;
+    [SerializeField] ParticleSystem deathParticles;
+
+
+    [SerializeField] AudioClip success;
+    [SerializeField] AudioClip death;
+
+    AudioSource audiosource;
+
+    bool isControllable = true;
+
+    private void Start()
+    {
+        if (successParticles.isPlaying)
+        {
+            successParticles.Stop();
+        }
+
+        if (deathParticles.isPlaying)
+        {
+            deathParticles.Stop();
+        }
+    }
+    private void Awake()
+    {
+        audiosource = GetComponent<AudioSource>();
+    }
+
     private void OnCollisionEnter(Collision other)
     {
+        if (!isControllable) { return; }
+
         switch (other.gameObject.tag)
         {
             case "Finish":
@@ -20,21 +49,28 @@ public class CollisionHandler : MonoBehaviour
             case "Pickup":
                 Debug.Log("You got a pickup!");
                 break;
-            default:
-                Debug.Log("Something happens");
+            case "JumpableWall":
+                //Debug.Log("You're touching a wall");
+                //default:
+                //    Debug.Log("Something happens");
                 break;
         }
     }
 
+
     private void StartSuccessSequence()
     {
+        audiosource.PlayOneShot(success);
         successParticles.Play();
-        GetComponent<movement>().enabled = false;
+        GetComponent<Movement>().enabled = false;
         Invoke("LoadNextScene", 2f);
+        
     }
     private void StartDeathSequence()
     {
-        GetComponent<movement>().enabled = false;
+        audiosource.PlayOneShot(death);
+        deathParticles.Play();
+        GetComponent<Movement>().enabled = false;
         Invoke("ReloadScene", 2f);
     }
     void ReloadScene()
