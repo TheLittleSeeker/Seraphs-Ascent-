@@ -49,7 +49,7 @@ public class CollisionHandler : MonoBehaviour
             case "Pickup":
                 Debug.Log("You got a pickup!");
                 break;
-            case "Wall":
+            case "JumpableWall":
                 //Debug.Log("You're touching a wall");
                 //default:
                 //    Debug.Log("Something happens");
@@ -57,11 +57,12 @@ public class CollisionHandler : MonoBehaviour
         }
     }
 
+
     private void StartSuccessSequence()
     {
         audiosource.PlayOneShot(success);
         successParticles.Play();
-        GetComponent<movement>().enabled = false;
+        GetComponent<Movement>().enabled = false;
         Invoke("LoadNextScene", 2f);
         
     }
@@ -69,7 +70,7 @@ public class CollisionHandler : MonoBehaviour
     {
         audiosource.PlayOneShot(death);
         deathParticles.Play();
-        GetComponent<movement>().enabled = false;
+        GetComponent<Movement>().enabled = false;
         Invoke("ReloadScene", 2f);
     }
     void ReloadScene()

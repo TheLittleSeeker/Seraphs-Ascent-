@@ -1,7 +1,8 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class movement : MonoBehaviour
+public class Movement : MonoBehaviour
 {
     [SerializeField] InputAction jump;
     [SerializeField] InputAction move;
@@ -13,7 +14,7 @@ public class movement : MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] float groundDistance = 0.2f;
     [SerializeField] LayerMask groundLayer;
-    [SerializeField] bool isGrounded;
+    [SerializeField] public bool isGrounded;
 
     [SerializeField] Transform wallCheck;
     [SerializeField] float wallDistance = 0.2f;
@@ -25,7 +26,9 @@ public class movement : MonoBehaviour
     [SerializeField] AudioClip walk2SFX;
 
     [SerializeField] bool canWingBoost;
-    
+    [SerializeField] bool canWallJump;
+    Vector3 wallJumpDirection;
+
 
 
     Rigidbody rb;
@@ -37,6 +40,7 @@ public class movement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
         canWingBoost = false;
+        canWallJump = false;
     }
     private void Start()
     {
@@ -59,7 +63,7 @@ public class movement : MonoBehaviour
     private void FixedUpdate()
     {
         HandleMove();
-        HandleWallJump();
+        //HandleWallJump();
     }
 
     private void HandleJump()
@@ -73,20 +77,62 @@ public class movement : MonoBehaviour
             rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
             canWingBoost = !canWingBoost;
         }
-    }
-
-    private void HandleWallJump()
-    {
-        if (isTouchingWall)
+        if (canWingBoost)
         {
-            Debug.Log("I am touching a wall!");
+            canWallJump = !canWallJump;
+        }
+        if (!canWallJump)
+        {
+            if (canWingBoost)
+            {
+                canWallJump = !canWallJump;
+            }
+        }
+        else if (canWallJump)
+        {
+            //Debug.Log("Wall Layer via Raycast");
             //Vector2 playerVelocity = rb.linearVelocity;
             //playerVelocity.y = 0f;
             //rb.linearVelocity = playerVelocity;
 
             //rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
+            canWallJump = !canWallJump;
+        }
+    
+}
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (isGrounded && hit.transform.CompareTag("JumpableWall"))
+        {
+            canWallJump = true;
+            wallJumpDirection = hit.normal;
+            Debug.DrawLine(hit.point, hit.normal + hit.point, Color.blue);
+        }
+        else
+        {
+            canWallJump = false;
         }
     }
+    //private void HandleWallJump()
+    //{
+    //    if (jump.IsPressed() && !canWallJump)
+    //    {
+    //        if (canWingBoost)
+    //        {
+    //            canWallJump = !canWallJump;
+    //        }
+    //    }
+    //    else if (jump.IsPressed() && canWallJump)
+    //    {
+    //        Debug.Log("Wall Layer via Raycast");
+    //        Vector2 playerVelocity = rb.linearVelocity;
+    //        playerVelocity.y = 0f;
+    //        rb.linearVelocity = playerVelocity;
+
+    //        rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
+    //        canWallJump = !canWallJump;
+    //    }
+    //}
 
     private void HandleMove()
     {            
@@ -111,17 +157,6 @@ public class movement : MonoBehaviour
             {
                 audioSource.Stop();
             }
-        }
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        switch (other.gameObject.tag)
-        {
-            case "Wall":
-                isTouchingWall = true;
-                Debug.Log("You're touching a wall");
-                break;
         }
     }
 

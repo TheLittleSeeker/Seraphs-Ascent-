@@ -8,7 +8,7 @@ TagManager:
   - Unfriendly
   - Collectable
   - Pickup
-  - Wall
+  - JumpableWall
   layers:
   - Default
   - TransparentFX
@@ -16,7 +16,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - Wall
+  - jumpableWall
   - 
   - 
   - 
