@@ -31,7 +31,7 @@ public class Movement : MonoBehaviour
 
 
 
-    Rigidbody rb;
+    public Rigidbody rb;
     AudioSource audioSource;
     Vector2 playerVelocity;
 
