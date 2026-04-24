@@ -12,6 +12,9 @@ public class CollisionHandler : MonoBehaviour
 
     AudioSource audiosource;
 
+    public float coinCount = 0;
+    //const string PLAYER_TAG = "Player";
+
     bool isControllable = true;
 
     private void Start()
@@ -49,6 +52,8 @@ public class CollisionHandler : MonoBehaviour
                 break;
             case "Collectable":
                 Debug.Log("You found a coin!");
+                //if (other.CompareTag(PLAYER)
+                //Destroy(gameObject);
                 break;
             case "Pickup":
                 Debug.Log("You got a pickup!");
@@ -93,4 +98,9 @@ public class CollisionHandler : MonoBehaviour
         }
         SceneManager.LoadScene(nextScene);
     }
+
+    //public void CoinsCollected(int count)
+    //{
+    //    coinCount += count;
+    //}
 }
