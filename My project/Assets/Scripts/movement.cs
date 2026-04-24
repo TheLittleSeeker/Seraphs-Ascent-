@@ -17,16 +17,17 @@ public class Movement : MonoBehaviour
     [SerializeField] public bool isGrounded;
 
     [SerializeField] Transform wallCheck;
-    [SerializeField] float wallDistance = 0.2f;
+    //[SerializeField] float wallDistance = 0.2f;
     [SerializeField] LayerMask wallLayer;
-    [SerializeField] bool isTouchingWall;
+    //[SerializeField] bool isTouchingWall;
 
 
     [SerializeField] AudioClip walk1SFX;
     [SerializeField] AudioClip walk2SFX;
 
     [SerializeField] bool canWingBoost;
-    [SerializeField] bool canWallJump;
+    //[SerializeField] bool canWallJump;
+    //[SerializeField] bool inAir;
     Vector3 wallJumpDirection;
 
 
@@ -40,11 +41,13 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
         canWingBoost = false;
-        canWallJump = false;
+        //canWallJump = false;
+        //inAir = false;
     }
     private void Start()
     {
         jump.performed += ctx => HandleJump();
+        //jump.performed += ctx => CheckLanded();
     }
 
 
@@ -57,12 +60,33 @@ public class Movement : MonoBehaviour
     private void Update()
     {
         CheckGrounded();
-        CheckTouchingWall();
+        //CheckTouchingWall();
+        if (isGrounded)
+        {
+            canWingBoost = true;
+            //inAir = false;
+        }
     }
 
     private void FixedUpdate()
     {
         HandleMove();
+        //if (!isGrounded)
+        //{
+        //    inAir = true;
+
+        //    if (inAir)
+        //    { canWingBoost = true; }
+
+        //    else if (!inAir)
+        //    { canWingBoost = false; }
+        //}
+        //if (isGrounded)
+        //{
+        //    canWingBoost = false;
+        //    inAir = false;
+        //}
+        
         //HandleWallJump();
     }
 
@@ -77,42 +101,57 @@ public class Movement : MonoBehaviour
             rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
             canWingBoost = !canWingBoost;
         }
-        if (canWingBoost)
-        {
-            canWallJump = !canWallJump;
-        }
-        if (!canWallJump)
-        {
-            if (canWingBoost)
-            {
-                canWallJump = !canWallJump;
-            }
-        }
-        else if (canWallJump)
-        {
-            //Debug.Log("Wall Layer via Raycast");
-            //Vector2 playerVelocity = rb.linearVelocity;
-            //playerVelocity.y = 0f;
-            //rb.linearVelocity = playerVelocity;
+        //if (isGrounded)
+        //{
+        //    inAir = false;
+        //}
+        //if (inAir == true)
+        //{
+        //    canWingBoost = true;
+        //}
+        //else if (inAir == false)
+        //{
+        //    canWingBoost = false;
+        //}
 
-            //rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
-            canWallJump = !canWallJump;
-        }
-    
-}
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        if (isGrounded && hit.transform.CompareTag("JumpableWall"))
-        {
-            canWallJump = true;
-            wallJumpDirection = hit.normal;
-            Debug.DrawLine(hit.point, hit.normal + hit.point, Color.blue);
-        }
-        else
-        {
-            canWallJump = false;
-        }
+
+
+        //if (canWingBoost)
+        //{
+        //    canWallJump = !canWallJump;
+        //}
+        //if (!canWallJump)
+        //{
+        //    if (canWingBoost)
+        //    {
+        //        canWallJump = !canWallJump;
+        //    }
+        //}
+        //else if (canWallJump)
+        //{
+        //    //Debug.Log("Wall Layer via Raycast");
+        //    //Vector2 playerVelocity = rb.linearVelocity;
+        //    //playerVelocity.y = 0f;
+        //    //rb.linearVelocity = playerVelocity;
+
+        //    //rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
+        //    canWallJump = !canWallJump;
+        //}
+
     }
+    //private void OnControllerColliderHit(ControllerColliderHit hit)
+    //{
+    //    if (isGrounded && hit.transform.CompareTag("JumpableWall"))
+    //    {
+    //        //canWallJump = true;
+    //        wallJumpDirection = hit.normal;
+    //        Debug.DrawLine(hit.point, hit.normal + hit.point, Color.blue);
+    //    }
+    //    else
+    //    {
+    //        canWallJump = false;
+    //    }
+    //}
     //private void HandleWallJump()
     //{
     //    if (jump.IsPressed() && !canWallJump)
@@ -146,18 +185,18 @@ public class Movement : MonoBehaviour
             rb.MoveRotation(Quaternion.Euler(0, yRotation, 0));
         }
 
-        if (move.IsPressed())
-        {
-            if (!audioSource.isPlaying && isGrounded)
-            {
-                audioSource.PlayOneShot(walk1SFX, walk1SFX.length);
-                //audioSource.PlayOneShot(walk2SFX);
-            }
-            else
-            {
-                audioSource.Stop();
-            }
-        }
+        //if (move.IsPressed())
+        //{
+        //    if (!audioSource.isPlaying && isGrounded)
+        //    {
+        //        audioSource.PlayOneShot(walk1SFX, walk1SFX.length);
+        //        //audioSource.PlayOneShot(walk2SFX);
+        //    }
+        //    else
+        //    {
+        //        audioSource.Stop();
+        //    }
+        //}
     }
 
     void CheckGrounded()
@@ -165,9 +204,17 @@ public class Movement : MonoBehaviour
         isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, groundLayer);        
     }
 
-    void CheckTouchingWall()
-    {
-        isTouchingWall = Physics.Raycast(wallCheck.position, Vector3.forward, wallDistance, wallLayer);
-    }
+    //void CheckTouchingWall()
+    //{
+    //    isTouchingWall = Physics.Raycast(wallCheck.position, Vector3.forward, wallDistance, wallLayer);
+    //}
+
+    //void CheckLanded()
+    //{
+    //    if (isGrounded && !inAir)
+    //    {
+    //        canWingBoost = false;
+    //    }
+    //}
 }
 
