@@ -29,6 +29,7 @@ public class CollisionHandler : MonoBehaviour
     private void Awake()
     {
         audiosource = GetComponent<AudioSource>();
+        GetComponent<Player_Health>();
     }
 
     private void OnCollisionEnter(Collision other)
@@ -41,7 +42,10 @@ public class CollisionHandler : MonoBehaviour
                 StartSuccessSequence();
                 break;
             case "Unfriendly":
-                StartDeathSequence();
+                //if (Player_Health <= 0)
+                //{
+                    StartDeathSequence();
+                //}
                 break;
             case "Collectable":
                 Debug.Log("You found a coin!");
