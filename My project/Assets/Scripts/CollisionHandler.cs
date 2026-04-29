@@ -50,11 +50,11 @@ public class CollisionHandler : MonoBehaviour
                     StartDeathSequence();
                 //}
                 break;
-            case "Collectable":
-                Debug.Log("You found a coin!");
-                //if (other.CompareTag(PLAYER)
-                //Destroy(gameObject);
-                break;
+            //case "Collectable":
+            //    Debug.Log("You found a coin!");
+            //    //if (other.CompareTag(PLAYER)
+            //    Destroy(this.gameObject);
+                //break;
             case "Pickup":
                 Debug.Log("You got a pickup!");
                 break;
