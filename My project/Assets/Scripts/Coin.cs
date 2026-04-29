@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
+    int coinCount;
+
+    private void Awake()
+    {
+        //coinCount = <Collectables>.coinsCollected;
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            //Debug.Log("You found " + coinsCollected + " coins!");
+            //GetComponent<Collectables>;
             Destroy(gameObject);
         }
     }

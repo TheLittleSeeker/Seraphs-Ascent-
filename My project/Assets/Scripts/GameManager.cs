@@ -13,11 +13,6 @@ public class GameManager : MonoBehaviour
 
     const string COINS_COLLECTED_STRING = "Coins: ";
 
-    public void Awake()
-    {
-        coinsCollected = shared.coinsCollected;
-    }
-
     public void AdjustCoinCount(int count)
     {
         coinsCollected += count;

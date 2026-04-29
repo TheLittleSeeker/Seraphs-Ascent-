@@ -4,7 +4,7 @@ public class Collectables : MonoBehaviour
 {
     public int coinsCollected;
 
-    void AddCoin()
+    public void AddCoin()
     {
         coinsCollected++;
     }
