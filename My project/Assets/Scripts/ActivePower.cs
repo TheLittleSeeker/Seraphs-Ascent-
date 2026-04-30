@@ -1,15 +1,16 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.Windows;
+using UnityEngine.InputSystem;
 
 public class ActivePower : MonoBehaviour
 {
-    //[SerializeField] PowerSO startingPower;
+    [SerializeField] PowerSO startingPower;
     [SerializeField] TMP_Text ammoText;
 
-    //PowerSO currentPowerSO;
-    ////StarterAssetsInputs input;
-    //Power currentPower;
+    PowerSO currentPowerSO;
+    public InputAction shoot;
+    Power currentPower;
     //Animator anim;
 
 
@@ -18,60 +19,64 @@ public class ActivePower : MonoBehaviour
 
     const string SHOOT_STRING = "Shoot";
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void Awake()
+    {
+        //shoot.performed += OnShoot;
+    }
+
     void Start()
     {
-        //SwitchPower(startingPower);
+        SwitchPower(startingPower);
         //AdjustAmmo(currentPower.MagazineSize);
 
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         TimeSinceLastShot += Time.deltaTime;
         //HandleShoot();
 
     }
-    //void HandleShoot()
-    //{
-    //    if (!input.shoot) return;
+    void HandleShoot()
+    {
+        //if (!attack.shoot) return;
 
-    //    if (TimeSinceLastShot >= currentPowerSO.FireRate && currentAmmo > 0)
-    //    {
-    //        anim.Play(SHOOT_STRING, 0, 0f);
-    //        currentWeapon.Shoot(currentPowerSO);
-    //        TimeSinceLastShot = 0f;
-    //        AdjustAmmo(-1);
-    //    }
+        if (TimeSinceLastShot >= currentPowerSO.FireRate && currentAmmo > 0)
+        {
+            //anim.Play(SHOOT_STRING, 0, 0f);
+            currentPower.Shoot(currentPowerSO);
+            TimeSinceLastShot = 0f;
+            AdjustAmmo(-1);
+        }
 
-    //    if (!currentPowerSO.IsAutomatic)
-    //    {
-    //        input.ShootInput(false);
-    //    }
+        if (!currentPowerSO.IsAutomatic)
+        {
+            //attack.ShootInput(false);
+        }
 
-    //}
-    //public void AdjustAmmo(int amount)
-    //{
-    //    currentAmmo += amount;
+    }
+    public void AdjustAmmo(int amount)
+    {
+        currentAmmo += amount;
 
-    //    if (currentAmmo > currentPowerSO.MagazineSize)
-    //    {
-    //        currentAmmo = currentPowerSO.MagazineSize;
-    //    }
+        if (currentAmmo > currentPowerSO.MagazineSize)
+        {
+            currentAmmo = currentPowerSO.MagazineSize;
+        }
 
-    //    ammoText.text = currentAmmo.ToString("D2");
-    //}
+        ammoText.text = currentAmmo.ToString("D2");
+    }
 
-    //public void SwitchWeapon(PowerSO powerSO)
-    //{
-    //    if (currentWeapon)
-    //    {
-    //        Destroy(currentWeapon.gameObject);
-    //    }
-    //    Power newPower = Instantiate(powerSO.PowerPrefab, transform).GetComponent<Power>();
-    //    currentPower = newPower;
-    //    this.currentPowerSO = powerSO;
-    //    AdjustAmmo(currentPowerSO.MagazineSize);
-    //}
+    public void SwitchPower(PowerSO powerSO)
+    {
+        if (currentPower)
+        {
+            Destroy(currentPower.gameObject);
+        }
+        Power newPower = Instantiate(powerSO.PowerPrefab, transform).GetComponent<Power>();
+        currentPower = newPower;
+        this.currentPowerSO = powerSO;
+        AdjustAmmo(currentPowerSO.MagazineSize);
+    }
 }

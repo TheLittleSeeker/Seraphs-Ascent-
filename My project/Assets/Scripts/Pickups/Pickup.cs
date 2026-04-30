@@ -14,13 +14,13 @@ public abstract class Pickup : MonoBehaviour
     {
         if (other.CompareTag(PLAYER_TAG))
         {
-            //ActivePower activePower = other.GetComponentInChildren<ActivePower>();
-            //OnPickup(activePower);
+            ActivePower activePower = other.GetComponentInChildren<ActivePower>();
+            OnPickup(activePower);
             Destroy(this.gameObject);
         }
     }
 
-    //protected abstract void OnPickup(ActivePower activePower);
+    protected abstract void OnPickup(ActivePower activePower);
 
 
 

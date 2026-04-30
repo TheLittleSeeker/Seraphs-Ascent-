@@ -1,6 +1,6 @@
 using UnityEngine;
 
-//[CreateAssetMenu(fileName = "PowerSO", menuName = "ScriptableObjects/Power")]
+[CreateAssetMenu(fileName = "PowerSO", menuName = "ScriptableObjects/Power")]
 
 public class PowerSO : ScriptableObject
 {
