@@ -93,13 +93,13 @@ public class Movement : MonoBehaviour
             Vector2 playerVelocity = rb.linearVelocity;
             playerVelocity.y = 0f;
             rb.linearVelocity = playerVelocity;
-            canWallJump = !canWallJump;
+            canWallJump = false;
             rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
             canWingBoost = !canWingBoost;
         }
 
 
-        if (canWallJump && !isGrounded)
+        else if (canWallJump && !isGrounded)
         {
             rb.linearVelocity = new Vector2(wallJumpDirection * wallJumpForce.x, wallJumpForce.y);
             canWallJump = false;
