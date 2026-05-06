@@ -4,22 +4,43 @@ using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] TMP_Text coinsCollectedText;
-    //[SerializeField] GameObject winMsg;
+    ////[SerializeField] TMP_Text coinText;
+    ////[SerializeField] GameObject winMsg;
 
-    int coinsCollected = 0;
-    
-    public Collectables shared;
+    //private int Coin = 0;
 
-    const string COINS_COLLECTED_STRING = "Coins: ";
+    //public TextMeshProUGUI coinText;
 
-    public void AdjustCoinCount(int count)
-    {
-        coinsCollected += count;
+    //const string COINS_COLLECTED_STRING = "Coins: ";
 
-        coinsCollectedText.text = COINS_COLLECTED_STRING + coinsCollected.ToString();
-    }
+    ////public void AdjustCoinCount(int count)
+    ////{
+    ////    coins += count;
 
+    ////    coinsText.text = COINS_COLLECTED_STRING + coins.ToString();
+    ////}
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.transform.tag == "Collectable")
+    //    {
+    //        //AddCoin();
+    //        Coin++;
+    //        coinText.text = "Coin: " + Coin.ToString();
+    //        Debug.Log(Coin);
+    //        Destroy(other.gameObject);
+    //    }
+    //}
+    //public void AddCoin()
+    //{
+    //    Coin++;
+
+    //    if (Coin == 30)
+    //    {
+    //        //insert code for 'good job' message here
+    //    }
+
+    //}
 
 
 
