@@ -6,7 +6,7 @@ public class Enemy_Health : MonoBehaviour
     [SerializeField] GameObject explosionVFX;
     [SerializeField] int starthealth = 3;
 
-    //GameManager gameManager;
+    GameManager gameManager;
     int currenthealth;
 
     private void Awake()
@@ -16,7 +16,7 @@ public class Enemy_Health : MonoBehaviour
 
     private void Start()
     {
-        //gameManager = FindFirstObjectByType<GameManager>();
+        gameManager = FindFirstObjectByType<GameManager>();
         //gameManager.AdjustEnemyCount(1);
     }
     public void TakeDamage(int damageamount)

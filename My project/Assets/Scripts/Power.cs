@@ -10,7 +10,7 @@ public class Power : MonoBehaviour
 
     //private void Awake()
     //{
-    //    Player.Player.Enable()
+    //    Player.Enable();
     //}
     public void Shoot(PowerSO powerSO)
     {

@@ -9,6 +9,6 @@ public class PowerSO : ScriptableObject
     public float FireRate = 0.5f;
     public bool IsAutomatic = false;
     //public GameObject HitVFXPrefab;
-    public int MagazineSize = 7;
+    public int MagazineSize = 3;
 }
 

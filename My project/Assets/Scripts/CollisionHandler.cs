@@ -12,7 +12,6 @@ public class CollisionHandler : MonoBehaviour
 
     AudioSource audiosource;
 
-    public float coinCount = 0;
     //const string PLAYER_TAG = "Player";
 
     bool isControllable = true;
@@ -98,9 +97,4 @@ public class CollisionHandler : MonoBehaviour
         }
         SceneManager.LoadScene(nextScene);
     }
-
-    //public void CoinsCollected(int count)
-    //{
-    //    coinCount += count;
-    //}
 }
