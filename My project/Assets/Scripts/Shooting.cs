@@ -29,7 +29,7 @@ public class Shooting : MonoBehaviour
         }
 
 
-        //mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        //mousePos = mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
         //Vector3 rotation = mousePos - transform.position;
 
@@ -46,7 +46,7 @@ public class Shooting : MonoBehaviour
         //        timer = 0;
         //    }
 
-        //    if (Input.GetMouseButton(0) && canFire)
+        //    if (Mouse.current.leftButton.isPressed && canFire)
         //    {
         //        canFire = false;
         //        Instantiate(bullet, bulletTransform.position, Quaternion.identity);
