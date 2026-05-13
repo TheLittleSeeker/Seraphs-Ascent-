@@ -3,40 +3,37 @@ using UnityEngine.AI;
 
 public class Enemy_Goblin : MonoBehaviour
 {
-    
+    //public bool Destroyed{ get; set; }
+    //public Vector3 Position { get; set; }
+    //[SerializeField] GameObject coin;
 
-    Rigidbody rb;
-
-    NavMeshAgent agent;
-
-    const string PLAYER_TAG = "Player";
+    [SerializeField] AudioClip enemyDeath;
+    AudioSource audiosource;
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        audiosource = GetComponent<AudioSource>();
     }
+
+    private void OnDestroy()
+    {
+        //Position = transform.position;
+        //Destroyed = true;
+        //audiosource.PlayOneShot(enemyDeath);
+        //Instantiate(coin, transform.position, Quaternion.identity);
+    }
+
+
 
 
     void Start()
     {
-        //player = FindFirstObjectByType<Rigidbody.>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        //if (!player) return;
 
-        //agent.SetDestination(player.transform.position);
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag(PLAYER_TAG))
-    //    {
-    //        EnemyHealth health = GetComponent<EnemyHealth>();
-    //        health.SelfDestruct();
-    //    }
-
-    //}
 }
