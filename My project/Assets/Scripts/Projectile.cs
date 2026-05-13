@@ -1,9 +1,18 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Projectile : MonoBehaviour
 {
 
     [SerializeField] float speed = 30f;
+
+    [SerializeField] ParticleSystem collectParticles;
+
+
+    [SerializeField] AudioClip collect;
+
+    AudioSource audiosource;
+
 
 
     Rigidbody rb;
@@ -20,6 +29,20 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        switch (collision.gameObject.tag)
+        {
+            case "Unfriendly":
+                EnemyDeathSequence();
+                Destroy(collision.gameObject);
+                break;
+        }
+
         Destroy(this.gameObject);
+    }
+
+    private void EnemyDeathSequence()
+    {
+        audiosource.PlayOneShot(collect);
+        collectParticles.Play();
     }
 }
