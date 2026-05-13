@@ -27,7 +27,7 @@ public class ActivePower : MonoBehaviour
     void Start()
     {
         SwitchPower(startingPower);
-        //AdjustAmmo(currentPower.MagazineSize);
+        AdjustAmmo(currentPowerSO.MagazineSize);
 
     }
 
