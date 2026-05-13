@@ -1073,6 +1073,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coin
       objectReference: {fileID: 0}
+    - target: {fileID: 7084578870635547549, guid: 7ebc125582ba9f546af6ee047d884e0f, type: 3}
+      propertyPath: rotationSpeed
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1557,6 +1561,10 @@ PrefabInstance:
     - target: {fileID: 3000972083537167997, guid: 7ebc125582ba9f546af6ee047d884e0f, type: 3}
       propertyPath: m_Name
       value: Coin
+      objectReference: {fileID: 0}
+    - target: {fileID: 7084578870635547549, guid: 7ebc125582ba9f546af6ee047d884e0f, type: 3}
+      propertyPath: rotationSpeed
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2067,6 +2075,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9005690045480359087, guid: 3ddbdc1773d9b824eae6a8b90680b033, type: 3}
+      propertyPath: coinGet
+      value: 
+      objectReference: {fileID: 8300000, guid: 0be2a895e5b5bc74aa04b8940cfd1596, type: 3}
     - target: {fileID: 9005690045480359087, guid: 3ddbdc1773d9b824eae6a8b90680b033, type: 3}
       propertyPath: coinText
       value: 

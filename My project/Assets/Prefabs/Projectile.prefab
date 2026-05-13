@@ -194,6 +194,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   speed: 30
+  killParticles: {fileID: 0}
+  enemyDeath: {fileID: 8300000, guid: efaf62e46d26eb04abe10556dd6a6ff2, type: 3}
+  coin: {fileID: 3000972083537167997, guid: 7ebc125582ba9f546af6ee047d884e0f, type: 3}
+  coinPrefab: {fileID: 3000972083537167997, guid: 7ebc125582ba9f546af6ee047d884e0f, type: 3}
+  enemyPrefab: {fileID: 6791698659798682866, guid: 2cd15358d0285f14188f59f752b9adf5, type: 3}
 --- !u!54 &2714040284537002817
 Rigidbody:
   m_ObjectHideFlags: 0

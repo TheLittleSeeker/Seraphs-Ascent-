@@ -53,7 +53,7 @@ public class CollisionHandler : MonoBehaviour
             //    Debug.Log("You found a coin!");
             //    //if (other.CompareTag(PLAYER)
             //    Destroy(this.gameObject);
-                //break;
+            //    break;
             case "Pickup":
                 Debug.Log("You got a pickup!");
                 break;

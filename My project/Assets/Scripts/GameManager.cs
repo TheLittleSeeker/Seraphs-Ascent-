@@ -4,6 +4,32 @@ using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+    public GameObject prefab;
+
+    //public GameObject[] enemy;
+
+
+    public void Awake()
+    {
+        instance = this;
+    }
+
+    public void Update()
+    {
+        Check();
+    }
+
+    public void Check()
+    {
+        //if (enemy.Destroyed)
+        //{
+        //    Instantiate(prefab, enemy.Position, Quaternion.identity);
+        //}
+    }
+
+
+
     ////[SerializeField] TMP_Text coinText;
     ////[SerializeField] GameObject winMsg;
 
