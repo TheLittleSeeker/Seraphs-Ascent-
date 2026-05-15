@@ -9,35 +9,24 @@ public class Mouse_Position : MonoBehaviour
     public Transform player;
     public float distanceToPlayer;
     [SerializeField] Sprite crossHair;
+    [SerializeField] int missileCount;
+
+
     private RectTransform crosshairRect;
-
-    
-
-    Vector3 mouse_pos;
-    Vector3 mouse_world_pos;
+    //Vector3 mouse_pos;
+    //Vector3 mouse_world_pos;
 
     private void Start()
     {
         //Cursor.visible = false;
         crosshairRect = GetComponent<RectTransform>();
+        missileCount = 3;
     }
 
     void Update()
     {
         GetMousePosition();
         FireProjectile();
-
-        //// This code constantly checks for mouse position
-        //mouse_pos = Mouse.current.position.ReadValue();
-        //mouse_pos.z = 10f;
-        //mouse_world_pos = Camera.main.ScreenToWorldPoint(mouse_pos);
-        //transform.position = mouse_world_pos;
-        //crosshairRect.position = Mouse.current.position.ReadValue();
-        //Debug.Log(mouse_pos);
-
-
-        //// This code would only check mouse position on click
-
     }
 
     private void GetMousePosition()
@@ -49,9 +38,13 @@ public class Mouse_Position : MonoBehaviour
 
     private void FireProjectile()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current.leftButton.wasPressedThisFrame && missileCount >= 3)
         {
             Instantiate(projectile, spawnPoint.position, transform.rotation);
+        }
+        else
+        {
+            //Destroy(gameObject)
         }
     }
 }

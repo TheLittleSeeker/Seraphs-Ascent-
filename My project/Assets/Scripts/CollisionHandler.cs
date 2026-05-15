@@ -10,6 +10,10 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] AudioClip success;
     [SerializeField] AudioClip death;
 
+    [SerializeField] GameObject playerModel;
+
+    Animator anim_win;
+
     AudioSource audiosource;
 
     //const string PLAYER_TAG = "Player";
@@ -27,6 +31,7 @@ public class CollisionHandler : MonoBehaviour
         {
             deathParticles.Stop();
         }
+
     }
     private void Awake()
     {
@@ -70,6 +75,10 @@ public class CollisionHandler : MonoBehaviour
     {
         audiosource.PlayOneShot(success);
         successParticles.Play();
+        transform.Rotate(0, 90, 0);
+        GetComponentInChildren<Animator>().SetTrigger("Win");
+        //GetComponent<GameObject>
+        GetComponentInChildren<Mouse_Position>().enabled = false;
         GetComponent<Movement>().enabled = false;
         Invoke("LoadNextScene", 2f);
         
