@@ -159,7 +159,12 @@ public class Movement : MonoBehaviour
         {
             float yRotation = moveInput > 0 ? 0f : 180f;
             rb.MoveRotation(Quaternion.Euler(0, yRotation, 0));
+            //GetComponentInChildren<Animator>().SetTrigger("Moving");
         }
+        //else
+        //{
+        //    GetComponentInChildren<Animator>().ResetTrigger("Moving");
+        //}
 
         //if (move.IsPressed())
         //{
