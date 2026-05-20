@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
@@ -31,12 +32,23 @@ public class CollisionHandler : MonoBehaviour
         {
             deathParticles.Stop();
         }
-
     }
     private void Awake()
     {
         audiosource = GetComponent<AudioSource>();
         GetComponent<Player_Health>();
+    }
+    private void Update()
+    {
+        RespondToDebugKeys();
+    }
+
+    private void RespondToDebugKeys()
+    {
+        if (Keyboard.current.lKey.wasPressedThisFrame)
+        {
+            LoadNextScene();
+        }
     }
 
     private void OnCollisionEnter(Collision other)
@@ -69,7 +81,17 @@ public class CollisionHandler : MonoBehaviour
                 break;
         }
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Pickup")
+        {
+            if (!transform.Find("MagicMissileShoot").gameObject.activeInHierarchy)
+            {
+                //Debug.Log("You got the scroll");
+                transform.Find("MagicMissileShoot").gameObject.SetActive(true);
+            }
+        }
+    }
 
     private void StartSuccessSequence()
     {
